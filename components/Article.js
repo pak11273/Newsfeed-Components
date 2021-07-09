@@ -89,28 +89,80 @@ const data = [
   }
 ];
 
-/*
-  Step 1: Write a component called 'articleMaker' to create an article.
-  Your component is a function that takes an article object as its only argument,
-  and returns a DOM node looking like the one below:
+  // Step 1: Write a component called 'articleMaker' to create an article.
+  // Your component is a function that takes an article object as its only argument,
+  // and returns a DOM node looking like the one below:
 
-  <div class="article">
-    <h2>{title of the article}</h2>
-    <p class="date">{date of the article}</p>
+  const articleMaker = (ob) => {
+    // create article component
+    // <div class="article">
+    //   <h2>{title of the article}</h2>
+    //   <p class="date">{date of the article}</p>
 
-    {three separate paragraph elements}
+    //   {three separate paragraph elements}
 
-    <span class="expandButton">+</span>
-  </div>
+    //   <span class="expandButton">+</span>
+    // </div>
+    let article = document.createElement("div")
+    let h2 = document.createElement("h2")
+    let p = document.createElement("p")
+    let p1 = document.createElement("p")
+    let p2 = document.createElement("p")
+    let p3 = document.createElement("p")
+    let button = document.createElement("span")
+    article.classList.add("article")
+    article.appendChild(h2)
+    article.appendChild(p)
+    h2.textContent = `${ob.title}`
+    p.classList.add("date")
+    p.textContent = `${ob.date}`
+    article.appendChild(p1)
+    article.appendChild(p2)
+    article.appendChild(p3)
+    button.classList.add("expandButton")
+    button.textContent = "+"
+    button.addEventListener("click", () => {
+    // This listener should toggle the class 'article-open' on div.article.
+      if(!article.className.includes("article-open")) {
+        article.classList.add("article-open")
+      } else {
+        article.classList.remove("article-open")
+      }
+    })
+    article.appendChild(button)
+    return article
+  }
 
-  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
-  This listener should toggle the class 'article-open' on div.article.
 
-  Step 3: Don't forget to return something from your function!
+  // Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
+  // This listener should toggle the class 'article-open' on div.article.
 
-  Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
-  to create a div.article element and append it to the DOM inside div.articles (see index.html).
+  // Step 3: Don't forget to return something from your function!
 
-  Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
-  Refresh the page to see the new article.
-*/
+  // Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
+  // to create a div.article element and append it to the DOM inside div.articles (see index.html).
+
+  // Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
+  // Refresh the page to see the new article.
+
+  let newArticle = {
+    title: 'The Lambda Prophecy', 
+    date: 'Jan 12th, 2021',
+    firstParagraph: `
+    psum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was po
+    `,
+    secondParagraph: `
+    psum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was po
+    `,
+    thirdParagraph: `
+    psum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was po
+    ` 
+  }
+
+data.push(newArticle)
+data.forEach((x) => {
+  let article = articleMaker(x)
+  let articles = document.querySelector(".articles")
+  articles.appendChild(article)
+})
+
